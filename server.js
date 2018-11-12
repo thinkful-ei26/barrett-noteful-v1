@@ -15,17 +15,8 @@ app.get('/api/notes', (req, res) => {
   if (req.query.searchTerm) {
     const searchTerm = data.filter( term => term.title.includes(req.query.searchTerm));
     // console.log(searchTerm);
-    res.json(searchTerm);
-  // }
+    return res.json(searchTerm);
   } 
-  // console.log(req.query);
-
-  // if (req.query.q) {
-  // const searchTerm = data.filter( term => term !== req.query.q);
-  // console.log(searchTerm);
-  // res.json(searchTerm);
-  // }
-  //filter will return the data that passes the test by the provided fn (so if you want keep cats, set to false)
   res.json(data);
 });
 
