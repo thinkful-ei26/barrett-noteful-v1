@@ -36,9 +36,16 @@ app.get('/api/notes', (req, res, next) => {
 app.get('/api/notes/:id', (req, res) => {
   //get the value of in dynamically changing :id
   const { id } = req.params;
+  
+  notes.find(id, (err, item) => {
+    if (err) {
+      return next(err);
+    }
+    res.json(item);
+  });
   //use const 
-  const reqNote = data.find(item => item.id === Number(id));
-  res.json(reqNote);
+  // const reqNote = data.find(item => item.id === Number(id));
+  // res.json(reqNote);
 });
 
 
