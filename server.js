@@ -5,11 +5,14 @@ const express = require('express');
 const data = require('./db/notes');
 const app = express();
 const { PORT } = require('./config');
+const logger = require('./middleware/logger');
 
 app.use(express.static('public'));
 
 //update this so that wea re adding searchTerm req.query
 // app.get('/api/notes', (req, res) => {res.json(data);});
+
+app.use(logger);
 
 app.get('/api/notes', (req, res) => {
   
@@ -20,7 +23,6 @@ app.get('/api/notes', (req, res) => {
   } 
   res.json(data);
 });
-
 
 app.get('/api/notes/:id', (req, res) => {
   //get the value of in dynamically changing :id
