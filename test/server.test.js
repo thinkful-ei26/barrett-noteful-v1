@@ -72,25 +72,28 @@ describe('GET notes', function() {
       });
   });
 
-  // it('should return correct search results for a valid query', function() {
-  //   const search = 'lady';
-  //   return chai
-  //     .request(app)
-  //     .get(`/api/notes/?searchTerm=${search}`)
-  //     .then(function(res) {
-  //       expect(res).to.have.status(200);
-  //       expect(res.body).to.be.an('array');
-  //       expect(res.body.length).to.be.at.least(1);
-  //       const mySearch = res.body.every(element => {
-  //         element.title.includes(search) || element.contents.includes(search);
-  //       });
-  //       expect(mySearch).to.be.true;
-  //     });
-  // });
+  it('should return correct search results for a valid query', function() {
+    const search = 'lady';
+    return chai
+      .request(app)
+      .get(`/api/notes/?searchTerm=${search}`)
+      .then(function(res) {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an('array');
+        expect(res.body[0]).to.be.an('object');
+      });
+  });
 
-  // it('should return an empty array for an incorrect query', function(){
-
-  // });
+  it('should return an empty array for an incorrect query', function(){
+    return chai.request(app)
+      .get('/api/notes?searchTerm=Does%20Not%20exist')
+      .then(function (res) {
+        expect(res).to.have.status(200);
+        expect(res).to.be.json;
+        expect(res.body).to.be.a('array');
+        expect(res.body).to.have.length(0);
+      });
+  });
 });
 
 describe('GET /api/notes/:id', function() {
